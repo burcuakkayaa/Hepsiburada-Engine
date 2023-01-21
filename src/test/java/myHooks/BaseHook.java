@@ -15,27 +15,33 @@ public class BaseHook {
 
     @Before("@chrome")
     public void launchBrowserAsChrome() {
-        driver = driverFactory.getDriver("chrome");
+        /**
+         * Launch the browser as Chrome
+         */
 
+        driver = driverFactory.getDriver("chrome");
     }
 
     @Before("@firefox")
     public void launchBrowserAsFirefox() {
-        driver = driverFactory.getDriver("firefox");
+        /**
+         * Launch the browser as Firefox
+         */
 
+        driver = driverFactory.getDriver("firefox");
     }
 
     @After()
     public void afterScenario(Scenario scenario) {
+        /**
+         * Manage the scenario result after performed each step and quit the browser
+         */
 
         if (scenario.isFailed()) {
             //take screenshot
             String screenshotName = scenario.getName().replaceAll(" ", "_");
-
             byte[] sourcePath = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-
             scenario.attach(sourcePath, "image/png", screenshotName);
-
         }
         driver.quit();
     }
