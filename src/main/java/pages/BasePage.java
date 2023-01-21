@@ -5,6 +5,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -225,11 +226,19 @@ public class BasePage extends PageFactory {
 
     public void sendKey(WebElement element, String text) {
         /**
-         * Scroll to the element
+         * Sendkeys value to the element
          * @param WebElement element: The element to find
          * @param str text: Text value for writing into the element
          */
 
         new Actions(driver).sendKeys(text).perform();
+    }
+
+    public void clickEnter() {
+        /**
+         * Clicks enter keyboard to the element
+         */
+
+        new Actions(driver).sendKeys(Keys.ENTER).perform();
     }
 }
