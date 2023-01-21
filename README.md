@@ -21,4 +21,5 @@ Open the terminal and write "allure serve", that's all. Allure Report is automat
     And user clicks Basket button
     Then user see that there are selected products at the Cart Page
     
-    ![image](https://user-images.githubusercontent.com/62480904/213889659-b3bd3090-7d0e-40d8-83fd-8ca6ab4f3276.png)
+
+![allurereport](https://user-images.githubusercontent.com/62480904/213889693-c471da07-8b69-45a2-b8d8-c29e3fafedca.png)
