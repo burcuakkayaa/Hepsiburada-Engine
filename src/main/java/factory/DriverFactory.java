@@ -12,6 +12,10 @@ public class DriverFactory {
     WebDriver driver;
 
     public WebDriver getDriver(String browserName) {
+        /**
+         * Create and Return browser options
+         */
+
         if ("firefox".equals(browserName)) {
             FirefoxOptions options = new FirefoxOptions();
             options.addArguments(Constant.DRIVER_OPTIONS);
@@ -23,9 +27,5 @@ public class DriverFactory {
         }
 
         return driver;
-    }
-
-    public void setDriver(WebDriver driver) {
-        this.driver = driver;
     }
 }

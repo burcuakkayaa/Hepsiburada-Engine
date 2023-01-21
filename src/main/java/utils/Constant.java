@@ -7,6 +7,10 @@ public class Constant {
     public static final String PAGE_LOAD_TIMEOUT = "180000";
 
     public static final String[] DRIVER_OPTIONS = {
+            /**
+            * Returns Driver Options
+            */
+
             "--ignore-certificate-errors"
             , "--ignore-ssl-errors"
             , "--disable-notifications"

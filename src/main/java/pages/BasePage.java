@@ -17,14 +17,13 @@ public class BasePage extends PageFactory {
 
     protected WebDriver driver;
     protected static int timeOut = 20;
-    private WebDriverWait jsWait;
-    private JavascriptExecutor js;
+    private final WebDriverWait jsWait;
+
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         this.jsWait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
-        this.js = (JavascriptExecutor) driver;
     }
 
     protected String getBrowserTitle() {
