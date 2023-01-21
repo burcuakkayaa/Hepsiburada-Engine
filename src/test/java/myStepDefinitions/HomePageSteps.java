@@ -1,35 +1,42 @@
 package myStepDefinitions;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.Assert;
-import pages.HomePage;
 
-import static myHooks.BaseHook.driver;
 
-public class HomePageSteps {
-    HomePage homePage = new HomePage(driver);
+public class HomePageSteps extends BaseSteps {
 
-    @Given("user visits Hepsiburada.com")
+    @Given("user visits hepsiburada.com")
     public void user_visits_hepsiburada_com() {
         /**
          * Verify that the webpage is opened
          */
 
         homePage.visitWebPage();
-        if (!homePage.urlContains("Hepsiburada"))
-            Assert.fail("The webpage can not loaded!");
+        homePage.acceptCookies();
+        Assert.assertTrue(homePage.urlContains("hepsiburada"), "The webpage can not loaded!");
 
     }
 
-    @When("user searches a product with {string}")
-    public void user_searches_a_product_with(String search) {
+    @When("user searches {string}")
+    public void user_searches(String search) {
         /**
          * Search product with a name
          * @param str search : the product name
          */
 
         homePage.searchProduct(search);
+        Assert.assertTrue(searchDetailsPage.verifyPageIsOpened(search), "Search Details Page can not be present!");
+        Assert.assertTrue(searchDetailsPage.verifyResultSummary(search), "The search result can not founded!");
+    }
+
+    @And("user clicks Basket button")
+    public void userClicksBasketButton() {
+        /**
+         * Clicks the basket button and opens the Cart Page
+         */
+        homePage.clickBasketButton();
     }
 }

@@ -6,11 +6,21 @@ import org.openqa.selenium.support.FindBy;
 import utils.Constant;
 
 import java.time.Duration;
+import java.util.List;
 
 public class HomePage extends BasePage {
 
-    @FindBy(css = "[aria-owns='react-autowhatever-1']")
+    @FindBy(xpath = "//div[contains(@class, 'searchBoxOld')]//input")
     WebElement searchBar;
+
+    @FindBy(id = "onetrust-accept-btn-handler")
+    WebElement acceptCookiesButton;
+
+    @FindBy(id = "cartItemCount")
+    WebElement cartItemCount;
+
+    @FindBy(id = "shoppingCart")
+    WebElement basketButton;
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -30,7 +40,7 @@ public class HomePage extends BasePage {
          * @param str text: expected text for the Url
          */
         Boolean flag = Boolean.TRUE;
-        if (!waitUntilUrlContains(text)) {
+        if (Boolean.FALSE.equals(waitUntilUrlContains(text))) {
             flag = Boolean.FALSE;
         }
         return flag;
@@ -44,5 +54,22 @@ public class HomePage extends BasePage {
 
         waitForElementClickable(searchBar).sendKeys(search);
         clickEnter();
+    }
+
+    public void acceptCookies() {
+        /**
+         * Clicks the accept cookies button
+         */
+
+        waitForElementClickable(acceptCookiesButton).click();
+    }
+
+    public void clickBasketButton() {
+        /**
+         * Clicks basket button from header
+         */
+        waitForElementClickable(basketButton).click();
+
+        new CartPage(driver);
     }
 }

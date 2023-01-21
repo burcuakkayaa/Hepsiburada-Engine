@@ -17,14 +17,17 @@ import java.util.List;
 public class BasePage extends PageFactory {
 
     protected WebDriver driver;
-    protected static int timeOut = 20;
+    protected static int timeOut = 5;
     private final WebDriverWait jsWait;
+
+    private final String winHandleBefore;
 
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         this.jsWait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
+        winHandleBefore = driver.getWindowHandle();
     }
 
     protected String getBrowserTitle() {
@@ -60,27 +63,30 @@ public class BasePage extends PageFactory {
         driver.navigate().back();
     }
 
+    protected void switchToNewWindow() {
+        /**
+         * Switch to new window
+         */
+
+        for (String winHandle : driver.getWindowHandles()) {
+            driver.switchTo().window(winHandle);
+        }
+    }
+
+    protected void switchToPreviousWindow() {
+        /**
+         * Switch to previous window
+         */
+
+        driver.switchTo().window(winHandleBefore);
+    }
+
     protected void refreshBrowser() {
         /**
          * Refresh current pages on the web application
          */
 
         driver.navigate().refresh();
-    }
-
-    protected boolean isElementPresent(By locator) {
-        /**
-         * Return True if element present and False if element absent
-         * @param By locator: locator of the element to find
-         */
-
-        try {
-            driver.findElement(locator);
-        } catch (NoSuchElementException e) {
-            return false;
-        }
-        return true;
-
     }
 
     protected Wait<WebDriver> wait_for() {
@@ -122,13 +128,13 @@ public class BasePage extends PageFactory {
         return wait_for().until(ExpectedConditions.invisibilityOf(element));
     }
 
-    protected Boolean visibilityOfAllElements(List<WebElement> element) {
+    protected List<WebElement> visibilityOfAllElements(List<WebElement> element) {
         /**
          * Wait for elements to be invisible
          * @param List<WebElement> element: The elements to find
          */
 
-        return wait_for().until(ExpectedConditions.invisibilityOfAllElements(element));
+        return wait_for().until(ExpectedConditions.visibilityOfAllElements(element));
     }
 
     protected Boolean waitUntilElementIsDisplayed(WebElement element) {
@@ -204,6 +210,15 @@ public class BasePage extends PageFactory {
          */
 
         new Actions(driver).moveToElement(element).click().perform();
+    }
+
+    public void hover(WebElement element) {
+        /**
+         * Hover to the element
+         * @param WebElement element: The element to find
+         */
+
+        new Actions(driver).moveToElement(element).perform();
     }
 
     public void doubleClick(WebElement element) {

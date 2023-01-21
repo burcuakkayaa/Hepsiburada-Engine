@@ -13,7 +13,7 @@ public class DriverFactory {
 
     public WebDriver getDriver(String browserName) {
         /**
-         * Create and Return browser options
+         * Creates and Returns browser options
          */
 
         if ("firefox".equals(browserName)) {
